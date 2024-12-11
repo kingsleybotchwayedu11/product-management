@@ -1,5 +1,8 @@
 package product.mangagement.productm.controller;
 
+import java.util.HashMap;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import product.mangagement.productm.models.*;
-
+import product.mangagement.productm.DTO.LoginDto;
 import product.mangagement.productm.DTO.UserSaveDTO;
 import product.mangagement.productm.service.UserService;
 import product.mangagement.productm.utils.PasswordEncoder;
@@ -31,6 +34,22 @@ public class UserController {
         if(user == null)
            throw new RuntimeException("User with the same email already saved");
         return user;
+    }
+    
+    @PostMapping("/user/login")
+    public HashMap<String, String> loginUser(@RequestBody @Valid LoginDto loginDetails) {
+            var report = new HashMap<String, String>(); // to return if succesfull
+            
+            Optional<User> user = userService.findByEmail(loginDetails.getEmail());
+            if(!user.isPresent())
+                throw new RuntimeException("User not found");
+              //check if password is right
+            if(!encoder.decode(loginDetails.getPassword(), user.get().getHashPassword()))
+                throw new RuntimeException("Wrong password");
+              
+                //add login token and send report
+            report.put("token", "some user token for validation and verification");
+            return report;
     }
     
     
