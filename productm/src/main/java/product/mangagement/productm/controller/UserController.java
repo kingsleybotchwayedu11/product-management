@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +18,11 @@ import product.mangagement.productm.models.*;
 import product.mangagement.productm.DTO.LoginDto;
 import product.mangagement.productm.DTO.UserSaveDTO;
 import product.mangagement.productm.service.UserService;
+import product.mangagement.productm.utils.JwtUtil;
 import product.mangagement.productm.utils.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -46,11 +53,17 @@ public class UserController {
               //check if password is right
             if(!encoder.decode(loginDetails.getPassword(), user.get().getHashPassword()))
                 throw new RuntimeException("Wrong password");
-              
                 //add login token and send report
-            report.put("token", "some user token for validation and verification");
+            report.put("token", new JwtUtil().generateToken(user.get().getEmail())) ;//new JwtUtil().generateToken(user.get().getEmail()));
             return report;
     }
+
+    @GetMapping("/test")
+    public String getMethodName() {
+        return "Kofi Ama";
+    }
+    
+    
     
     
 }

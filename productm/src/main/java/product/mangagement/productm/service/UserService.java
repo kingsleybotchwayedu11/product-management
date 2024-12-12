@@ -1,7 +1,14 @@
 package product.mangagement.productm.service;
+import  product.mangagement.productm.models.UserPrincipal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import  product.mangagement.productm.models.User;
 
 import org.springframework.stereotype.Service;
@@ -9,7 +16,8 @@ import org.springframework.stereotype.Service;
 import product.mangagement.productm.repository.UserRepository;
 
 @Service
-public class UserService {
+@Primary
+public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userepo;
 
@@ -28,6 +36,14 @@ public class UserService {
     public User getUser(long id) {
         return (userepo.findById(id)).get();
     }
-    
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+        Optional<User> user = userepo.findByEmail(username);
+        System.out.println(user.get().getHashPassword());
+        if(user.isPresent())
+            return new UserPrincipal(user.get());
+        throw new UsernameNotFoundException("user not found");
+    }
 }
