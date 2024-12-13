@@ -1,4 +1,4 @@
-package product.mangagement.productm.DTO;
+package product.mangagement.productm.DTO.users;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;

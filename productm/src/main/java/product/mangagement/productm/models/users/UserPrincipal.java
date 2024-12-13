@@ -1,4 +1,4 @@
-package product.mangagement.productm.models;
+package product.mangagement.productm.models.users;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package product.mangagement.productm.models;
+package product.mangagement.productm.models.users;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -14,10 +14,10 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import product.mangagement.productm.models.*;
-import product.mangagement.productm.DTO.LoginDto;
-import product.mangagement.productm.DTO.UserSaveDTO;
-import product.mangagement.productm.service.UserService;
+import product.mangagement.productm.models.users.User;
+import product.mangagement.productm.service.user.UserService;
+import product.mangagement.productm.DTO.users.LoginDto;
+import product.mangagement.productm.DTO.users.UserSaveDTO;
 import product.mangagement.productm.utils.JwtUtil;
 import product.mangagement.productm.utils.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,10 +1,10 @@
-package product.mangagement.productm.DTO;
+package product.mangagement.productm.DTO.users;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import product.mangagement.productm.models.User;
+import product.mangagement.productm.models.users.User;
 import product.mangagement.productm.utils.*;
 public class UserSaveDTO {
     @Valid

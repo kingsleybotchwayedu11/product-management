@@ -1,8 +1,8 @@
-package product.mangagement.productm.repository;
+package product.mangagement.productm.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import product.mangagement.productm.models.User;
+import product.mangagement.productm.models.users.User;
 
 import java.util.Optional;
 

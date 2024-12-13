@@ -11,7 +11,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import product.mangagement.productm.service.UserService;
+import product.mangagement.productm.service.user.UserService;
 import product.mangagement.productm.utils.JwtUtil;
 import org.springframework.security.core.userdetails.UserDetails;
 

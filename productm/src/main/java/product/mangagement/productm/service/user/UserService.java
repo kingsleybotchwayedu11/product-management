@@ -1,19 +1,18 @@
-package product.mangagement.productm.service;
-import  product.mangagement.productm.models.UserPrincipal;
+package product.mangagement.productm.service.user;
+import  product.mangagement.productm.models.users.UserPrincipal;
+import product.mangagement.productm.repository.user.UserRepository;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import  product.mangagement.productm.models.User;
+import  product.mangagement.productm.models.users.User;
 
 import org.springframework.stereotype.Service;
-
-import product.mangagement.productm.repository.UserRepository;
 
 @Service
 @Primary
