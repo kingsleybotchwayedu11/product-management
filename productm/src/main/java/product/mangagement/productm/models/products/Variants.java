@@ -15,7 +15,7 @@ public class Variants {
     private double price;
     private String description;
     private boolean available;
-    private Long product_id;
+    private Long productId;
     private int quantiy;
 
 
@@ -31,11 +31,11 @@ public class Variants {
     public void setAvailable(boolean available) {
         this.available = available;
     }
-    public Long getProduct_id() {
-        return product_id;
+    public Long getProductId() {
+        return productId;
     }
-    public void setProduct_id(Long product_id) {
-        this.product_id = product_id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
     public Variants() {
         this.available = true;
@@ -64,6 +64,6 @@ public class Variants {
         this.available = true;
         this.name = name;
         this.description= description;
-        this.product_id = product_id;
+        this.productId = product_id;
     }
 }

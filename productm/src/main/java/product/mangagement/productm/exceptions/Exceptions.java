@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -21,12 +22,37 @@ public class Exceptions {
     return report;
    }
 
-   @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Response> handleRuntimeException(RuntimeException exception) {
+   @ExceptionHandler(NotFoundExceptions.class)
+    public ResponseEntity<Response> notFound(RuntimeException exception) {
 
     // Return an error response with a 500 Internal Server Error status code.
     Response response = new Response(exception.getMessage(), 400);
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityAlreadyExistException.class)
+    public ResponseEntity<Response> handleAlreadyExist(RuntimeException exception) {
+
+    // Return an error response with a 500 Internal Server Error status code.
+    Response response = new Response(exception.getMessage(), 400);
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+    
+
+    @ExceptionHandler(WrongParameterValueException.class)
+    public ResponseEntity<Response> wrongParamValue(RuntimeException exception) {
+
+    // Return an error response with a 500 Internal Server Error status code.
+    Response response = new Response(exception.getMessage(), 400);
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class) 
+    public ResponseEntity<Response> aunthorized(AccessDeniedException exception) {
+
+        // Return an error response with a 500 Internal Server Error status code.
+        Response response = new Response(exception.getMessage(), 400);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 }

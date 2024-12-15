@@ -1,18 +1,24 @@
 package product.mangagement.productm.models.products;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
+
 import java.util.List;
+
 
 @Entity
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Ensure this is present
+    @Column(name = "product_id")
     private Long id;
 
     @Column(nullable = false)
@@ -25,11 +31,26 @@ public class Product {
     private boolean available;
 
     @ManyToOne
-    @JoinColumn(name="category_id")
+    @JoinColumn(name="categoryId")
     Category category;
 
-    @OneToMany(mappedBy = "")
-    List<Image> images;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
+
+    @Transient
+    private List<Variants> variants;
+
+    public void setVariants(List<Variants> variants) {
+        this.variants = variants;
+    }
+
+    public List<Variants> getVariants() {
+        return variants;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
     public Long getId() {
         return id;
     }
@@ -45,4 +66,25 @@ public class Product {
     public String getDescription() {
         return description;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImage(Image image) {
+        images.add(image);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+    
+
 }

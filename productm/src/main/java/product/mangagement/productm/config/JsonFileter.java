@@ -1,6 +1,7 @@
 package product.mangagement.productm.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,7 @@ import product.mangagement.productm.utils.JwtUtil;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.IOException;
+import product.mangagement.productm.models.users.UserPrincipal;
 
 @Component
 public class JsonFileter extends OncePerRequestFilter {
@@ -44,7 +46,9 @@ public class JsonFileter extends OncePerRequestFilter {
                 if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                     // Load user details using the UserService
                     UserDetails userDetails = userService.loadUserByUsername(username);
-
+                    var userD = (UserPrincipal) userDetails;
+                    if(!userD.getUser().getRole().toUpperCase().equals("ADMIN"))
+                        throw new AccessDeniedException("Resource is for only admins");
                     if (userDetails != null) {
                         // If user is found, set the authentication in the security context
                         UsernamePasswordAuthenticationToken authenticationToken = 

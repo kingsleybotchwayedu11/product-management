@@ -1,10 +1,16 @@
 package product.mangagement.productm.models.users;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity(name = "managementUsers")
 public class User {
@@ -15,8 +21,14 @@ public class User {
     String name; 
     @Column(unique = true)
     String email;
+
+    @JsonIgnore
     String hashPassword;
+    
     String role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    UserVerification verifyCationEntry;
 
     public void setName(String name) {
         this.name = name;
@@ -38,6 +50,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public long getId() {
+        return id;
     }
     public User() {};
 

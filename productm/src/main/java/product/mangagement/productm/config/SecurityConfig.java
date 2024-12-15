@@ -32,7 +32,7 @@ public class SecurityConfig {
         
         // Define public endpoints
         http.authorizeHttpRequests(request -> 
-            request.requestMatchers("/user", "/user/login").permitAll()
+            request.requestMatchers("/user", "/user/login", "/user/password-reset", "/user/change-password").permitAll()
         );
 
         // Apply stateless session policy

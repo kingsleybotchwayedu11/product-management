@@ -1,5 +1,7 @@
 package product.mangagement.productm.models.products;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,12 +16,19 @@ public class Image {
     @GeneratedValue
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    Product product;
+    @JoinColumn(name = "productId") // Foreign key to Product
+    private Product product;
 
     boolean isPrimary ;
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
     private String tumbnail_url;
     
     @Column(nullable = false)
@@ -28,7 +37,6 @@ public class Image {
     public String getTumbnail_url() {
         return tumbnail_url;
     }
-
     public void setTumbnail_url(String tumbnail_url) {
         this.tumbnail_url = tumbnail_url;
     }

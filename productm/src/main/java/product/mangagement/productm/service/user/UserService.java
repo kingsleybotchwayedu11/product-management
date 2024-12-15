@@ -1,5 +1,7 @@
 package product.mangagement.productm.service.user;
 import  product.mangagement.productm.models.users.UserPrincipal;
+import product.mangagement.productm.models.users.UserVerification;
+import product.mangagement.productm.repository.product.VerificationRepository;
 import product.mangagement.productm.repository.user.UserRepository;
 
 import java.util.Optional;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userepo;
+    @Autowired
+    VerificationRepository userVerification;
 
     public User addUser(User user){
         //save user to the database
@@ -36,13 +40,24 @@ public class UserService implements UserDetailsService {
         return (userepo.findById(id)).get();
     }
 
+    public void addVerificationEntry(UserVerification vt) {
+        userVerification.save(vt);
+    }
+    
+    public void deleteVerification(UserVerification vt) {
+        userVerification.delete(vt);
+    }
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
         Optional<User> user = userepo.findByEmail(username);
         System.out.println(user.get().getHashPassword());
         if(user.isPresent())
             return new UserPrincipal(user.get());
         throw new UsernameNotFoundException("user not found");
+    }
+
+    public Optional<UserVerification> getUserVerification(String vId) {
+        return userVerification.findByVerificationCode(vId);
     }
 }
