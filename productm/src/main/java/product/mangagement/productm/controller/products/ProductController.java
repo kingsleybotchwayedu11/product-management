@@ -118,8 +118,8 @@ public class ProductController {
         return "Product deleted";
         }
 
-        @PutMapping("/product/item/{id}")
-        public Product updateProduct(@PathVariable Long id, @RequestBody @Valid UpdateProductDto updateData) {
+    @PutMapping("/product/item/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody @Valid UpdateProductDto updateData) {
             //check if product exist
             return productService.updateProduct(updateData, id);
         }
