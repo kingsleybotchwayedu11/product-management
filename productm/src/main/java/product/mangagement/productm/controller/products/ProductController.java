@@ -84,7 +84,7 @@ public class ProductController {
         return ResponseEntity.ok(report);
     }
 
-    @GetMapping("/product/item")
+    @GetMapping("/product/items")
     public Page<Product> getProducts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
         if(size < 0 || page < 0)
             throw new WrongParameterValueException("if size is given it cant be less than 1, if page is  cant be a negative number");
@@ -124,7 +124,7 @@ public class ProductController {
             return productService.updateProduct(updateData, id);
         }
      
-    @GetMapping("/products/categories/{categoryId}") 
+    @GetMapping("/products/category/{categoryId}") 
     public Page<Product> findProductCategory(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue="10") int size, @PathVariable Integer categoryId){
         if(size < 0 || page < 0)
             throw new WrongParameterValueException("if size is given it cant be less than 1, if page is  cant be a negative number");

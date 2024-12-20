@@ -78,7 +78,7 @@ public class VariantService {
                     productVariant.get().setName(updatedVariantData.getName());
                 if(updatedVariantData.getDescription() != null)
                     productVariant.get().setDescription(updatedVariantData.getDescription());
-                if(updatedVariantData.getPrice() < 0)
+                if(updatedVariantData.getPrice() > 0)
                     productVariant.get().setPrice(updatedVariantData.getPrice());
                 if(updatedVariantData.getAvailable() != null)
                     productVariant.get().setAvailable(updatedVariantData.getAvailable());
